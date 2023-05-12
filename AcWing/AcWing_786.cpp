@@ -28,13 +28,14 @@ void quick_sort(int arr[], int l, int r)
 
 int main()
 {
-    cin >> n;
+    int k;
+    cin >> n >> k;
 
-    for (int i = 0; i < n; ++ i) cin >> iarr[i];
+    for (int i = 0; i < n; ++ i) cin >> iarr + i;
 
-    quick_sort(iarr, 0, n);
+    quick_sort(iarr, 0, n - 1);
 
-    for (int i = 0; i < n; ++ i) cout << iarr[i] << " ";
+    cout << iarr[k - 1] << endl;
 
     return 0;
 }
