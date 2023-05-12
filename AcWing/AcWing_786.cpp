@@ -31,7 +31,7 @@ int main()
     int k;
     cin >> n >> k;
 
-    for (int i = 0; i < n; ++ i) cin >> iarr + i;
+    for (int i = 0; i < n; ++ i) cin >> iarr[i];
 
     quick_sort(iarr, 0, n - 1);
 
