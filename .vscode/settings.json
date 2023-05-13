@@ -15,7 +15,9 @@
         }
     ],
     "files.associations": {
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "cmath": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
