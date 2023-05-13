@@ -9,17 +9,23 @@ int iarr[N];
 
 void quick_sort(int arr[], int l, int r)
 {
-    if (l >= r) return ;
+    if (l >= r)
+        return;
 
     int m = arr[l + r >> 1];
 
     int i = l - 1, j = r + 1;
     while (i < j)
     {
-        do ++ i; while (arr[i] < m);
-        do -- j; while (arr[j] > m);
+        do
+            ++i;
+        while (arr[i] < m);
+        do
+            --j;
+        while (arr[j] > m);
 
-        if (i < j) swap(arr[i], arr[j]);
+        if (i < j)
+            swap(arr[i], arr[j]);
     }
 
     quick_sort(arr, l, j);
@@ -31,7 +37,8 @@ int main()
     int k;
     cin >> n >> k;
 
-    for (int i = 0; i < n; ++ i) cin >> iarr[i];
+    for (int i = 0; i < n; ++i)
+        cin >> iarr[i];
 
     quick_sort(iarr, 0, n - 1);
 
