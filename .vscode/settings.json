@@ -11,7 +11,7 @@
             "name": "Elegance",
             "database": "mysql",
             "username": "root",
-            "askForPassword": true
+            "password": "Zsc5183764920."
         }
     ],
     "files.associations": {
