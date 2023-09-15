@@ -4,7 +4,9 @@
 
 using LL = long long;
 
-void solution() {}
+void solution() {
+
+}
 
 signed main() {
   std::ios::sync_with_stdio(false);
