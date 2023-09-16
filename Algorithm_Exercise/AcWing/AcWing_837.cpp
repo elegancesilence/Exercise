@@ -26,20 +26,19 @@ void solution() {
     sz[i] = 1;
   }
 
-  int a, b, x;
-  std::string op;
+  int a, b;
   while (m--) {
+    std::string op;
     std::cin >> op;
 
     if (op == "C") {
       std::cin >> a >> b;
 
-      if (find(a) == find(b)) {
-        continue;
+      if (find(a) != find(b)) {
+        sz[find(b)] += sz[find(a)];
+        p[find(a)] = find(b);
       }
 
-      p[find(a)] = find(b);
-      sz[find(b)] += sz[find(a)];
     } else if (op == "Q1") {
       std::cin >> a >> b;
 
@@ -49,6 +48,7 @@ void solution() {
         std::cout << "No" << std::endl;
       }
     } else {
+      int x;
       std::cin >> x;
 
       std::cout << sz[find(x)] << std::endl;
