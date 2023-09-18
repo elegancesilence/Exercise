@@ -4,6 +4,8 @@
 
 using LL = long long;
 
+const int MOD = 1e9 + 7;
+
 void solution() {
 
 }
