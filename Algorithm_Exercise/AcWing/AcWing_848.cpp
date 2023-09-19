@@ -1,69 +1,81 @@
-#include <iostream>
-#include <cstring>
+#include <bits/stdc++.h>
 
-using namespace std;
+#define int long long
 
+using LL = long long;
+
+const int MOD = 1e9 + 7;
 const int N = 1e5 + 5;
 
 int n, m;
-int dgr[N], q[N];
-
 int idx;
-int h[N], val[N], ne[N];
+int h[N], val[N], nxt[N];
+std::queue<int> q;
+int res[N], deg[N];
 
-void add(int x, int y)
-{
-    val[idx] = y;
+void add(int x, int y) {
+  val[idx] = y;
 
-    ne[idx] = h[x];
-    h[x] = idx++;
+  nxt[idx] = h[x];
+  h[x] = idx++;
 }
 
-void topsort()
-{
-    int head = 0, tail = -1;
-    for (int i = 1; i <= n; ++i)
-        if (dgr[i] == 0)
-            q[++tail] = i;
-
-    while (head <= tail)
-    {
-        int t = q[head++];
-
-        for (int i = h[t]; i != -1; i = ne[i])
-        {
-            int d = val[i];
-            --dgr[d];
-
-            if (dgr[d] == 0)
-                q[++tail] = d;
-        }
+void topsort() {
+  for (int i = 1; i <= n; ++i) {
+    if (!deg[i]) {
+      q.push(i);
     }
+  }
 
-    if (tail != n - 1)
-        cout << -1 << endl;
-    else
-        for (int i = 0; i < n; ++i)
-            cout << q[i] << " ";
+  int cnt = 0;
+  while (!q.empty()) {
+    int t = q.front();
+    q.pop();
+
+    res[cnt++] = t;
+
+    for (int i = h[t]; i != -1; i = nxt[i]) {
+      int j = val[i];
+      --deg[j];
+      if (!deg[j]) {
+        q.push(j);
+      }
+    }
+  }
+
+  if (cnt == n) {
+    for (int i = 0; i < n; ++i) {
+      std::cout << res[i] << " ";
+    }
+    std::cout << std::endl;
+  } else {
+    std::cout << "-1" << std::endl;
+  }
 }
 
-int main()
-{
-    cin >> n >> m;
+void solution() {
+  std::cin >> n >> m;
 
-    memset(h, -1, sizeof h);
+  memset(h, -1, sizeof h);
 
+  while (m--) {
     int a, b;
-    while (m--)
-    {
-        cin >> a >> b;
+    std::cin >> a >> b;
 
-        ++dgr[b];
+    add(a, b);
 
-        add(a, b);
-    }
+    ++deg[b];
+  }
 
-    topsort();
+  topsort();
+}
 
-    return 0;
+signed main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
+  solution();
+
+  return 0;
 }
