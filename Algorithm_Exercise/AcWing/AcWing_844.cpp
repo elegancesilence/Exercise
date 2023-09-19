@@ -1,55 +1,62 @@
-#include <iostream>
-#include <queue>
-#include <cstring>
+#include <bits/stdc++.h>
 
-using namespace std;
+#define int long long
 
-constexpr int N = 1e2 + 5;
+using LL = long long;
+using PII = std::pair<int, int>;
 
-using PII = pair<int, int>;
+const int MOD = 1e9 + 7;
+const int N = 1e2 + 5;
 
 int n, m;
 int g[N][N], d[N][N];
 
-int bfs()
-{
-    queue<PII> q;
-    q.push({0, 0});
+int bfs() {
+  std::queue<PII> q;
+  q.push({0, 0});
 
-    d[0][0] = 0;
+  d[0][0] = 0;
 
-    while (!q.empty())
-    {
-        PII t = q.front();
-        q.pop();
+  int dx[4] = {1, 0, -1, 0};
+  int dy[4] = {0, 1, 0, -1};
+  while (!q.empty()) {
+    PII t = q.front();
+    q.pop();
 
-        int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
-        for (int i = 0; i < 4; ++i)
-        {
-            int x = t.first + dx[i], y = t.second + dy[i];
+    for (int i = 0; i < 4; ++i) {
+      int x = t.first + dx[i];
+      int y = t.second + dy[i];
+      if (x >= 0 && x < n && y >= 0 && y < m && g[x][y] == 0 && d[x][y] == -1) {
+        d[x][y] = d[t.first][t.second] + 1;
 
-            if (x >= 0 && x < n && y >= 0 && y < m && g[x][y] == 0 && d[x][y] == -1)
-            {
-                d[x][y] = d[t.first][t.second] + 1;
-                q.push({x, y});
-            }
-        }
+        q.push({x, y});
+      }
     }
+  }
 
-    return d[n - 1][m - 1];
+  return d[n - 1][m - 1];
 }
 
-int main()
-{
-    cin >> n >> m;
+void solution() {
+  std::cin >> n >> m;
 
-    for (int i = 0; i < n; ++i)
-        for (int j = 0; j < m; ++j)
-            cin >> g[i][j];
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < m; ++j) {
+      std::cin >> g[i][j];
+    }
+  }
 
-    memset(d, -1, sizeof d);
+  memset(d, -1, sizeof d);
 
-    cout << bfs() << endl;
+  std::cout << bfs() << std::endl;
+}
 
-    return 0;
+signed main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
+  solution();
+
+  return 0;
 }

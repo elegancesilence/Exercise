@@ -1,49 +1,58 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
-using namespace std;
+#define int long long
 
-constexpr int N = 1e1 + 5;
+using LL = long long;
+
+const int MOD = 1e9 + 7;
+const int N = 15;
 
 int n;
-char q[N][N];
-bool col[N], dg[N * 2], udg[N * 2];
+char g[N][N];
+bool col[N], dg[N], udg[N];
 
-void dfs(int r)
-{
-    if (r == n)
-    {
-        for (int i = 0; i < n; ++i)
-            cout << q[i] << endl;
-
-        puts("");
-
-        return;
+void dfs(int y) {
+  if (y == n) {
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < n; ++j) {
+        std::cout << g[i][j];
+      }
+      std::cout << std::endl;
     }
+    std::cout << std::endl;
+  }
 
-    for (int i = 0; i < n; ++i)
-    {
-        if (!col[i] && !dg[i + r] && !udg[n - i + r])
-        {
-            q[r][i] = 'Q';
-            col[i] = dg[i + r] = udg[n - i + r] = true;
+  for (int x = 0; x < n; ++x) {
+    if (!col[x] && !dg[y + x] && !udg[n - y + x]) {
+      g[y][x] = 'Q';
+      col[x] = dg[y + x] = udg[n - y + x] = true;
 
-            dfs(r + 1);
+      dfs(y + 1);
 
-            col[i] = dg[i + r] = udg[n - i + r] = false;
-            q[r][i] = '.';
-        }
+      col[x] = dg[y + x] = udg[n - y + x] = false;
+      g[y][x] = '.';
     }
+  }
 }
 
-int main()
-{
-    cin >> n;
+void solution() {
+  std::cin >> n;
 
-    for (int i = 0; i < n; ++i)
-        for (int j = 0; j < n; ++j)
-            q[i][j] = '.';
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      g[i][j] = '.';
+    }
+  }
 
-    dfs(0);
+  dfs(0);
+}
 
-    return 0;
+signed main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
+  solution();
+
+  return 0;
 }

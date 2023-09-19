@@ -1,42 +1,48 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
-using namespace std;
+#define int long long
 
-const int N = 1e1 + 5;
+using LL = long long;
+
+const int MOD = 1e9 + 7;
+const int N = 10;
 
 int n;
 int path[N];
-bool flag[N];
+bool st[N];
 
-void bfs(int x)
-{
-    if (x == n)
-    {
-        for (int i = 0; i < n; ++i)
-            cout << path[i] << " ";
-
-        puts(" ");
+void dfs(int u) {
+  if (u == n) {
+    for (int i = 0; i < n; ++i) {
+      std::cout << path[i] << " ";
     }
+    std::cout << std::endl;
+  }
 
-    for (int i = 1; i <= n; ++i)
-    {
-        if (!flag[i])
-        {
-            path[x] = i;
-            flag[i] = 1;
+  for (int i = 1; i <= n; ++i) {
+    if (!st[i]) {
+      path[u] = i;
+      st[i] = true;
 
-            bfs(x + 1);
+      dfs(u + 1);
 
-            flag[i] = 0;
-        }
+      st[i] = false;
     }
+  }
 }
 
-int main()
-{
-    cin >> n;
+void solution() {
+  std::cin >> n;
 
-    bfs(0);
+  dfs(0);
+}
 
-    return 0;
+signed main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
+  solution();
+
+  return 0;
 }
