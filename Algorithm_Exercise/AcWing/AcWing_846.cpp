@@ -3,52 +3,59 @@
 #define int long long
 
 using LL = long long;
-using PII = std::pair<int, int>;
 
 const int MOD = 1e9 + 7;
-const int N = 1e2 + 5;
+const int N = 1e5 + 5, M = 2 * N;
 
-int n, m;
-int g[N][N], d[N][N];
+int n;
+int idx;
+int h[N], val[M], nxt[M];
+bool st[N];
 
-int bfs() {
-  std::queue<PII> q;
-  q.push({0, 0});
+int ans = 0x3f3f3f3f;
 
-  d[0][0] = 0;
+void add(int a, int b) {
+  val[idx] = b;
 
-  int dx[4] = {1, 0, -1, 0};
-  int dy[4] = {0, 1, 0, -1};
-  while (!q.empty()) {
-    PII t = q.front();
-    q.pop();
+  nxt[idx] = h[a];
+  h[a] = idx++;
+}
 
-    for (int i = 0; i < 4; ++i) {
-      int x = t.first + dx[i];
-      int y = t.second + dy[i];
-      if (x >= 0 && x < n && y >= 0 && y < m && g[x][y] == 0 && d[x][y] == -1) {
-        d[x][y] = d[t.first][t.second] + 1;
+int dfs(int u) {
+  st[u] = true;
 
-        q.push({x, y});
-      }
+  int sum = 1, res = 0;
+  for (int i = h[u]; i != -1; i = nxt[i]) {
+    int t = val[i];
+    if (!st[t]) {
+      int cnt = dfs(t);
+      res = std::max(res, cnt);
+      sum += cnt;
     }
   }
 
-  return d[n - 1][m - 1];
+  res = std::max(res, n - sum);
+  ans = std::min(ans, res);
+
+  return sum;
 }
 
 void solution() {
-  std::cin >> n >> m;
+  std::cin >> n;
 
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < m; ++j) {
-      std::cin >> g[i][j];
-    }
+  memset(h, -1, sizeof h);
+
+  for (int i = 0; i < n - 1; ++i) {
+    int a, b;
+    std::cin >> a >> b;
+
+    add(a, b);
+    add(b, a);
   }
 
-  memset(d, -1, sizeof d);
+  dfs(1);
 
-  std::cout << bfs() << std::endl;
+  std::cout << ans << std::endl;
 }
 
 signed main() {
