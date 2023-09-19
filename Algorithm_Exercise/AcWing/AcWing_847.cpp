@@ -19,7 +19,7 @@ void add(int x, int y) {
   h[x] = idx++;
 }
 
-int dfs() {
+int bfs() {
   std::queue<int> q;
   q.push(1);
 
@@ -56,7 +56,7 @@ void solution() {
 
   memset(d, -1, sizeof d);
 
-  std::cout << dfs() << std::endl;
+  std::cout << bfs() << std::endl;
 }
 
 signed main() {
