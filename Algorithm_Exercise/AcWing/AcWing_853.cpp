@@ -1,60 +1,57 @@
-#include <iostream>
-#include <cstring>
-#include <algorithm>
+#include <bits/stdc++.h>
 
-using namespace std;
+#define int long long
 
-const int N = 5 * 1e2 + 5, M = 1e4 + 5;
+using LL = long long;
 
-struct Edge
-{
-    int x, y, w;
-};
+const int MOD = 1e9 + 7;
+const int N = 5e2 + 5;
+const int M = 1e4 + 5;
 
 int n, m, k;
-int dist[N], backup[N];
-Edge edges[M];
+int dis[N], backup[N];
+struct Edge {
+  int x, y, w;
+} edge[M];
 
-int bellman_ford()
-{
-    dist[1] = 0;
-    for (int i = 0; i < k; ++i)
-    {
-        memcpy(backup, dist, sizeof dist);
+void Bellman_Ford() {
+  memset(dis, 0x3f, sizeof dis);
+  dis[1] = 0;
 
-        for (int j = 0; j < m; ++j)
-        {
-            int x = edges[j].x, y = edges[j].y, w = edges[j].w;
-
-            dist[y] = min(dist[y], backup[x] + w);
-        }
+  while (k--) {
+    memcpy(backup, dis, sizeof dis);
+    for (int i = 0; i < m; ++i) {
+      int x = edge[i].x, y = edge[i].y, w = edge[i].w;
+      dis[y] = std::min(dis[y], backup[x] + w);
     }
+  }
 
-    if (dist[n] > 0x3f3f3f3f / 2)
-        return 0x3f3f3f3f;
-    return dist[n];
+  if (dis[n] > 1e15) {
+    std::cout << "impossible" << std::endl;
+  } else {
+    std::cout << dis[n] << std::endl;
+  }
 }
 
-int main()
-{
-    cin >> n >> m >> k;
+void solution() {
+  std::cin >> n >> m >> k;
 
+  for (int i = 0; i < m; ++i) {
     int x, y, w;
-    for (int i = 0; i < m; ++i)
-    {
-        cin >> x >> y >> w;
+    std::cin >> x >> y >> w;
 
-        edges[i] = {x, y, w};
-    }
+    edge[i] = {x, y, w};
+  }
 
-    memset(dist, 0x3f, sizeof dist);
+  Bellman_Ford();
+}
 
-    int res = bellman_ford();
+signed main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
 
-    if (res == 0x3f3f3f3f)
-        puts("impossible");
-    else
-        cout << res << endl;
+  solution();
 
-    return 0;
+  return 0;
 }
