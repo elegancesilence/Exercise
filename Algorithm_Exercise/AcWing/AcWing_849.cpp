@@ -10,7 +10,7 @@ const int N = 5e2 + 5;
 int n, m;
 int dis[N];
 bool st[N];
-std::vector<std::vector<int>> g(N + 1, std::vector<int>(N + 1));
+std::vector<std::vector<int>> g(N + 1, std::vector<int>(N + 1, 1e9));
 
 void dijkstra() {
   memset(dis, 0x3f, sizeof dis);
@@ -31,7 +31,7 @@ void dijkstra() {
     }
   }
 
-  if (dis[n] == 0x3f3f3f3f) {
+  if (dis[n] > 1e15) {
     std::cout << -1 << std::endl;
   } else {
     std::cout << dis[n] << std::endl;
@@ -41,17 +41,11 @@ void dijkstra() {
 void solution() {
   std::cin >> n >> m;
 
-  for (int i = 1; i <= n; ++i) {
-    for (int j = 1; j <= n; ++j) {
-      g[i][j] = 0x3f3f3f3f;
-    }
-  }
-
   while (m--) {
-    int a, b, w;
-    std::cin >> a >> b >> w;
+    int x, y, w;
+    std::cin >> x >> y >> w;
 
-    g[a][b] = std::min(g[a][b], w);
+    g[x][y] = std::min(g[x][y], w);
   }
 
   dijkstra();
