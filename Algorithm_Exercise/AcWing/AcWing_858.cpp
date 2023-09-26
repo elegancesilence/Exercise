@@ -5,17 +5,19 @@
 using LL = long long;
 
 const int MOD = 1e9 + 7;
+const int INF = 1e9;
 const int N = 5e2 + 5;
 
 int n, m;
 int dis[N];
 bool st[N];
-std::vector<std::vector<int>> g(N + 1, std::vector<int>(N + 1, 1e9));
+std::vector<std::vector<int>> g(N + 1, std::vector<int>(N + 1, INF));
 
-void dijkstra() {
+void prim() {
   memset(dis, 0x3f, sizeof dis);
   dis[1] = 0;
 
+  int res = 0;
   for (int i = 0; i < n; ++i) {
     int t = -1;
     for (int j = 1; j <= n; ++j) {
@@ -24,18 +26,23 @@ void dijkstra() {
       }
     }
 
+    if (dis[t] > INF / 2) {
+      std::cout << "impossible" << std::endl;
+
+      return;
+    }
+
+    res += dis[t];
     st[t] = true;
 
     for (int j = 1; j <= n; ++j) {
-      dis[j] = std::min(dis[j], dis[t] + g[t][j]);
+      if (!st[j]) {
+        dis[j] = std::min(dis[j], g[t][j]);
+      }
     }
   }
 
-  if (dis[n] > 1e15) {
-    std::cout << -1 << std::endl;
-  } else {
-    std::cout << dis[n] << std::endl;
-  }
+  std::cout << res << std::endl;
 }
 
 void solution() {
@@ -45,10 +52,10 @@ void solution() {
     int x, y, w;
     std::cin >> x >> y >> w;
 
-    g[x][y] = std::min(g[x][y], w);
+    g[x][y] = g[y][x] = std::min(g[x][y], w);
   }
 
-  dijkstra();
+  prim();
 }
 
 signed main() {

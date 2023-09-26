@@ -9,18 +9,17 @@ const int MOD = 1e9 + 7;
 const int N = 1e5 + 5;
 
 int n, m;
-int dis[N];
+int dis[N], cnt[N];
 bool st[N];
 std::queue<int> q;
 std::vector<PII> g[N];
 
-void spfa() {
-  memset(dis, 0x3f, sizeof dis);
-  dis[1] = 0;
+bool spfa() {
+  for (int i = 1; i <= n; ++i) {
+    q.push(i);
 
-  q.push(1);
-
-  st[1] = true;
+    st[i] = true;
+  }
 
   while (!q.empty()) {
     int t = q.front();
@@ -32,21 +31,22 @@ void spfa() {
       int temp = g[t][i].first;
       if (dis[temp] > dis[t] + g[t][i].second) {
         dis[temp] = dis[t] + g[t][i].second;
+        cnt[temp] = cnt[t] + 1;
 
         if (!st[temp]) {
           q.push(temp);
 
           st[temp] = true;
         }
+
+        if (cnt[temp] >= n) {
+          return true;
+        }
       }
     }
   }
 
-  if (dis[n] > 1e15) {
-    std::cout << "impossible" << std::endl;
-  } else {
-    std::cout << dis[n] << std::endl;
-  }
+  return false;
 }
 
 void solution() {
@@ -59,7 +59,11 @@ void solution() {
     g[x].push_back({y, w});
   }
 
-  spfa();
+  if (spfa()) {
+    std::cout << "Yes" << std::endl;
+  } else {
+    std::cout << "No" << std::endl;
+  }
 }
 
 signed main() {
