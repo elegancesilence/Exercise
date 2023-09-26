@@ -14,16 +14,10 @@ void solution() {
   while (t--) {
     std::cin >> n >> k >> x;
 
-    if (k > n || k > x + 1) {
-      std::cout << -1 << std::endl;
-
-      continue;
-    }
-
-    if (k == x) {
-      std::cout << (k - 1) * k / 2 + (n - k) * (x - 1) << std::endl;
+    if ((n + n - k + 1) * k / 2 < x || (1 + k) * k / 2 > x) {
+      std::cout << "No" << std::endl;
     } else {
-      std::cout << (k - 1) * k / 2 + (n - k) * x << std::endl;
+      std::cout << "Yes" << std::endl;
     }
   }
 }
