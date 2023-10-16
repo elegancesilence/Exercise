@@ -6,19 +6,21 @@ using LL = long long;
 
 const int MOD = 1e9 + 7;
 
-void solution() {}
+LL n;
+
+void solution() {
+  std::cin >> n;
+
+  LL ans = (n < 20180001 ? n + 2017 : 20182017);
+  std::cout << ans << "\n";
+}
 
 signed main() {
   std::ios::sync_with_stdio(false);
   std::cin.tie(nullptr);
   std::cout.tie(nullptr);
 
-  int t = 1;
-  // std::cin >> t;
-
-  while (t--) {
-    solution();
-  }
+  solution();
 
   return 0;
 }

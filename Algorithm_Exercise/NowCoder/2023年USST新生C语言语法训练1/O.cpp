@@ -6,19 +6,24 @@ using LL = long long;
 
 const int MOD = 1e9 + 7;
 
-void solution() {}
+int x, y, z;
+
+void solution() { std::cin >> x >> y >> z; 
+  if ((x + y + z) / 3 < 60) {
+    std::cout << "YES"
+              << "\n";
+  } else {
+    std::cout << "NO"
+              << "\n";
+  }
+}
 
 signed main() {
   std::ios::sync_with_stdio(false);
   std::cin.tie(nullptr);
   std::cout.tie(nullptr);
 
-  int t = 1;
-  // std::cin >> t;
-
-  while (t--) {
-    solution();
-  }
+  solution();
 
   return 0;
 }
