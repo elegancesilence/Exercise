@@ -8,12 +8,15 @@ const int MOD = 1e9 + 7;
 const int N = 1e3 + 5;
 
 int n, m;
-char a[N], b[N];
+std::string a, b;
 int f[N][N];
 
 void solution() {
   std::cin >> n >> m;
-  std::cin >> a + 1 >> b + 1;
+  std::cin >> a >> b;
+
+  a = " " + a;
+  b = " " + b;
 
   for (int i = 1; i <= n; ++i) {
     for (int j = 1; j <= m; ++j) {
