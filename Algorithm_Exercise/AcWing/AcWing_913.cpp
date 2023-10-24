@@ -5,29 +5,26 @@
 using LL = long long;
 
 const int MOD = 1e9 + 7;
+const int N = 1e5 + 5;
 
 int n;
-
-bool judge(int x) {
-  for (int i = 2; i <= x / i; ++i) {
-    if (!(x % i)) {
-      return false;
-    }
-  }
-
-  return true;
-}
+int arr[N];
 
 void solution() {
   std::cin >> n;
 
-  if (judge(n) && n != 1) {
-    std::cout << "Yes"
-              << "\n";
-  } else {
-    std::cout << "No"
-              << "\n";
+  for (int i = 1; i <= n; ++i) {
+    std::cin >> arr[i];
   }
+
+  std::sort(arr + 1, arr + n + 1);
+
+  int ans = 0;
+  for (int i = 1; i <= n; ++i) {
+    ans += arr[i] * (n - i);
+  }
+
+  std::cout << ans << "\n";
 }
 
 signed main() {
@@ -36,7 +33,7 @@ signed main() {
   std::cout.tie(nullptr);
 
   int t = 1;
-  std::cin >> t;
+  // std::cin >> t;
 
   while (t--) {
     solution();

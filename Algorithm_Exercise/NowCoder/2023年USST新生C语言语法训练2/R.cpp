@@ -5,29 +5,27 @@
 using LL = long long;
 
 const int MOD = 1e9 + 7;
+const int N = 35;
 
 int n;
+int g[N][N];
 
 void solution() {
   std::cin >> n;
 
-  for (int i = 2; i <= n / i; ++i) {
-    if (!(n % i)) {
-      int cnt = 0;
-      while (!(n % i)) {
-        n /= i;
-
-        ++cnt;
-      }
-
-      std::cout << i << " " << cnt << "\n";
+  g[1][1] = 1;
+  for (int i = 2; i <= n; ++i) {
+    for (int j = 1; j <= i; ++j) {
+      g[i][j] = g[i - 1][j - 1] + g[i - 1][j];
     }
   }
 
-  if (n > 1) {
-    std::cout << n << " " << 1 << "\n";
+  for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j <= i; ++j) {
+      std::cout << std::setw(5) << g[i][j];
+    }
+    std::cout << "\n";
   }
-  std::cout << "\n";
 }
 
 signed main() {
@@ -36,7 +34,7 @@ signed main() {
   std::cout.tie(nullptr);
 
   int t = 1;
-  std::cin >> t;
+  // std::cin >> t;
 
   while (t--) {
     solution();

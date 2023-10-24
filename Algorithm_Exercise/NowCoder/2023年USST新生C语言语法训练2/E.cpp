@@ -5,28 +5,24 @@
 using LL = long long;
 
 const int MOD = 1e9 + 7;
+const int N = 25;
 
 int n;
+std::string str[N];
 
-bool judge(int x) {
-  for (int i = 2; i <= x / i; ++i) {
-    if (!(x % i)) {
-      return false;
-    }
-  }
-
-  return true;
-}
+bool cmp(std::string x, std::string y) { return x + y > y + x; }
 
 void solution() {
   std::cin >> n;
 
-  if (judge(n) && n != 1) {
-    std::cout << "Yes"
-              << "\n";
-  } else {
-    std::cout << "No"
-              << "\n";
+  for (int i = 1; i <= n; ++i) {
+    std::cin >> str[i];
+  }
+
+  std::sort(str + 1, str + n + 1, cmp);
+
+  for (int i = 1; i <= n; ++i) {
+    std::cout << str[i];
   }
 }
 
@@ -36,7 +32,7 @@ signed main() {
   std::cout.tie(nullptr);
 
   int t = 1;
-  std::cin >> t;
+  // std::cin >> t;
 
   while (t--) {
     solution();
