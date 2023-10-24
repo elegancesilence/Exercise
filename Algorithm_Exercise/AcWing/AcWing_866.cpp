@@ -1,36 +1,46 @@
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 
-using namespace std;
+#define int long long
+
+using LL = long long;
+
+const int MOD = 1e9 + 7;
 
 int n;
 
-bool is_prime(int x)
-{
-    if (x < 2)
-        return false;
+bool judge(int x) {
+  for (int i = 2; i <= x / i; ++i) {
+    if (!(x % i)) {
+      return false;
+    }
+  }
 
-    for (int i = 2; i <= x / i; ++i)
-        if (x % i == 0)
-            return false;
-
-    return true;
+  return true;
 }
 
-int main()
-{
-    cin >> n;
+void solution() {
+  std::cin >> n;
 
-    int x;
-    while (n--)
-    {
-        cin >> x;
+  if (judge(n) && n != 1) {
+    std::cout << "Yes"
+              << "\n";
+  } else {
+    std::cout << "No"
+              << "\n";
+  }
+}
 
-        if (is_prime(x))
-            cout << "Yes" << endl;
-        else
-            cout << "No" << endl;
-    }
+signed main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
 
-    return 0;
+  int t = 1;
+  std::cin >> t;
+
+  while (t--) {
+    solution();
+  }
+
+  return 0;
 }

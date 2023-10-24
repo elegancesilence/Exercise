@@ -1,43 +1,46 @@
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 
-using namespace std;
+#define int long long
+
+using LL = long long;
+
+const int MOD = 1e9 + 7;
 
 int n;
 
-void div_prime(int x)
-{
-    for (int i = 2; i <= x / i; ++i)
-        if (x % i == 0)
-        {
-            int s = 0;
-            while (x % i == 0)
-            {
-                x /= i;
+void solution() {
+  std::cin >> n;
 
-                ++s;
-            }
+  for (int i = 2; i <= n / i; ++i) {
+    if (!(n % i)) {
+      int cnt = 0;
+      while (!(n % i)) {
+        n /= i;
 
-            cout << i << " " << s << endl;
-        }
+        ++cnt;
+      }
 
-    if (x > 1)
-        cout << x << " " << 1 << endl;
+      std::cout << i << " " << cnt << "\n";
+    }
+  }
 
-    puts(" ");
+  if (n > 1) {
+    std::cout << n << " " << 1 << "\n";
+  }
+  std::cout << "\n";
 }
 
-int main()
-{
-    cin >> n;
+signed main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
 
-    int x;
-    while (n--)
-    {
-        cin >> x;
+  int t = 1;
+  std::cin >> t;
 
-        div_prime(x);
-    }
+  while (t--) {
+    solution();
+  }
 
-    return 0;
+  return 0;
 }
